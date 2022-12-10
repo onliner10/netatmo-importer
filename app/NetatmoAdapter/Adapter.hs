@@ -1,11 +1,18 @@
 module NetatmoAdapter.Adapter where
 
+import Core
 import NetatmoAdapter.Dto as Dto
 import Network.HTTP.Simple
 import Network.HTTP.Conduit
 import Ports
 
 data NetatmoHandle = NetatmoHandle { baseUrl :: String }
+
+newtype DeviceId = DeviceId String
+newtype ModuleId = ModuleId String
+
+data NetatmoBaseModule = NetatmoBaseModule { deviceId :: DeviceId, moduleId :: ModuleId }
+type NetatmoWeatherStation = Sensor NetatmoBaseModule
 
 getMeasurePath :: String
 getMeasurePath = "https://app.netatmo.net/api/getmeasure"

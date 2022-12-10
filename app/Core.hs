@@ -1,15 +1,17 @@
-module Core where
+-- TODO: Remove this 
+{-# OPTIONS_GHC -Wno-unused-top-binds #-}
+module Core (MeasurementType, Sensor, DataPoint, Measurement, StartTime, EndTime, TimeRange, createTimeRange) where
 
 import Data.Time
 import Data.Metrology
 import Data.Units.SI
 
-newtype DeviceId = DeviceId String
-newtype ModuleId = ModuleId String
-
 data MeasurementType = Rain | Humidity | Pressure | Temperature | WindStrength | WindAngle | GustStrength | GustAngle
+data Sensor a = Sensor { identifier :: a, measurements :: [Core.MeasurementType] }
 
 data DataPoint a = DataPoint { value :: a, timeStamp :: UTCTime}
+
+-- TODO: Consider making this a type family, to glue supported measurements with concrete sensors
 data Measurement = 
     MeasuredRain (DataPoint (Meter :/ Hour)) 
     -- TODO: Represent it with a constrained type
