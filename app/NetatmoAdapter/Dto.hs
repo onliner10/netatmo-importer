@@ -1,4 +1,4 @@
-module NetatmoApi.Dto (GetMeasureResponse, GetMeasureRequest, Measure) where
+module NetatmoAdapter.Dto (GetMeasureResponse, GetMeasureRequest (GetMeasureRequest), Measure) where
 
 import Data.Aeson.Types
 import System.Posix.Types
