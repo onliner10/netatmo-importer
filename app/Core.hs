@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wno-unused-top-binds #-}
-module Core (DataPoint, StartTime, EndTime, TimeRange, createTimeRange, WeatherReport, emptyReport) where
+module Core (DataPoint, StartTime, EndTime, createTimeRange, WeatherReport, emptyReport, TimeRange (rangeStart, rangeEnd)) where
 
 import Data.Time
 import Data.Metrology
@@ -31,8 +31,8 @@ emptyReport = WeatherReport{ temperature = empty, humidity = empty}
 type StartTime = UTCTime
 type EndTime = UTCTime
 
-data TimeRange = TimeRange { from :: StartTime, to :: EndTime} deriving (Show)
+data TimeRange = TimeRange { rangeStart :: StartTime, rangeEnd :: EndTime} deriving (Show)
 createTimeRange :: StartTime -> EndTime -> Either String TimeRange
-createTimeRange start end | end >= start = Right $ TimeRange{ from = start, to = end}
+createTimeRange start end | end >= start = Right $ TimeRange{ rangeStart = start, rangeEnd = end}
 createTimeRange _ _ = Left "End time must be >= start time"
 
